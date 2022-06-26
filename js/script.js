@@ -2,9 +2,19 @@
  * Project 5 - Public API Request
 */
 
-// Fetching the Data
+const galleryDiv = document.querySelector('#gallery');
+const body = document.querySelector('body');
+const employees = [];
 
-// function from Treehouse Fetch API workshop
+//-----------------------------------
+// Fetching employee data
+//-----------------------------------
+
+/** fetchData function
+ * function from Treehouse Fetch API workshop
+ * @param {*} url 
+ * @returns 
+ */
 function fetchData(url) {
     return fetch(url)
             .then(checkStatus)
@@ -12,7 +22,6 @@ function fetchData(url) {
             .catch(e => console.log('Problem', e))
 }
 
-const employees = [];
 
 for (let i=0; i<12; i++) {
     fetchData('https://randomuser.me/api/?nat=us')
@@ -27,10 +36,15 @@ for (let i=0; i<12; i++) {
         })
 }
 
+//-----------------------------------
+// Helper Functions
+//-----------------------------------
 
-// Helper functions
-
-// function from Treehouse Fetch API workshop
+/** checkStatus function
+ * function from Treehouse Fetch API workshop
+ * @param {*} response 
+ * @returns 
+ */
 function checkStatus(response) {
     if (response.ok) {
         return Promise.resolve(response);
@@ -38,10 +52,13 @@ function checkStatus(response) {
         return Promise.reject(new Error(response.statusText));
     }
 }
-
-const galleryDiv = document.querySelector('#gallery');
-const body = document.querySelector('body');
-
+/** displayCard function
+ * 
+ * @param {*} name 
+ * @param {*} email 
+ * @param {*} location 
+ * @param {*} picture 
+ */
 function displayCard(name, email, location, picture) {
 
     const html = `
@@ -62,6 +79,16 @@ function displayCard(name, email, location, picture) {
 
 }
 
+/** displayModal function
+ * 
+ * @param {*} picture 
+ * @param {*} name 
+ * @param {*} email 
+ * @param {*} city 
+ * @param {*} number 
+ * @param {*} address 
+ * @param {*} birthday 
+ */
 function displayModal(picture, name, email, city, number, address, birthday) {
     const html = `
         <div class="modal-container">
@@ -84,21 +111,42 @@ function displayModal(picture, name, email, city, number, address, birthday) {
     body.insertAdjacentHTML('beforeend', html)
 }
 
+/** formatBirthday function
+ * 
+ * @param {*} dob 
+ * @returns 
+ */
 function formatBirthday(dob) {
     let birthday = dob.date.substr(0,10);
     const regex = /(\d{4})-(\d{2})-(\d{2})/;
     return birthday.replace(regex, '$2/$3/$1')
 }
 
+/** formatNumber function
+ * 
+ * @param {*} phone 
+ * @returns 
+ */
 function formatNumber(phone) {
     const regex = /^\D*(\d{3})-\D*(\d{3})-\D*(\d{4})\D*$/;
     return phone.replace(regex, '($1) $2-$3')
 }
 
+/** formatAddress function
+ * 
+ * @param {*} location 
+ * @returns 
+ */
 function formatAddress(location) {
     return `${location.street.number} ${location.street.name}, ${location.city}, ${location.state} ${location.postcode}`
 }
 
+/** checkClickedEmployee function
+ * 
+ * @param {*} path 
+ * @param {*} name 
+ * @returns 
+ */
 function checkClickedEmployee (path, name) {
     let correct = false;
 
@@ -113,7 +161,10 @@ function checkClickedEmployee (path, name) {
     return correct;
 }
 
-// Event Listeners 
+//-----------------------------------
+// Event Listeners
+//-----------------------------------
+
 galleryDiv.addEventListener('click', (e) => {
     
     employees.forEach(employee => {
