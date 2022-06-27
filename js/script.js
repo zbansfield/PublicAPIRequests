@@ -4,7 +4,7 @@
 
 const galleryDiv = document.querySelector('#gallery');
 const body = document.querySelector('body');
-const employees = [];
+let employees = [];
 
 //-----------------------------------
 // Fetching employee data
@@ -23,18 +23,19 @@ function fetchData(url) {
 }
 
 // fetching 12 random users from the Random User API and displaying their information on the page with the displayCard() function
-for (let i=0; i<12; i++) {
-    fetchData('https://randomuser.me/api/?nat=us')
-        .then(data => {
-            employees.push(data.results[0])
-            const picture = `${data.results[0].picture.large}`
-            const name = `${data.results[0].name.first} ${data.results[0].name.last}`
-            const email = `${data.results[0].email}`
-            const location = `${data.results[0].location.city}, ${data.results[0].location.state}`
+
+fetchData('https://randomuser.me/api/?nat=us&results=12')
+    .then(data => {
+        employees = data.results
+        employees.forEach(employee => {
+            const picture = `${employee.picture.large}`
+            const name = `${employee.name.first} ${employee.name.last}`
+            const email = `${employee.email}`
+            const location = `${employee.location.city}, ${employee.location.state}`
             
             displayCard(name, email, location, picture)
         })
-}
+    })
 
 //-----------------------------------
 // Helper Functions
