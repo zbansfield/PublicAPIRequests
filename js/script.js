@@ -129,7 +129,7 @@ function formatBirthday(dob) {
  * @returns formatted phone number
  */
 function formatNumber(phone) {
-    const regex = /^\D*(\d{3})-\D*(\d{3})-\D*(\d{4})\D*$/;
+    const regex = /^\D*(\d{3})\D*(\d{3})-\D*(\d{4})\D*$/;
     return phone.replace(regex, '($1) $2-$3')
 }
 
