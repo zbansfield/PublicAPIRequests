@@ -13,7 +13,7 @@ const employees = [];
 /** fetchData function
  * function from Treehouse Fetch API workshop
  * @param {*} url 
- * @returns 
+ * @returns Promise object 
  */
 function fetchData(url) {
     return fetch(url)
@@ -22,7 +22,7 @@ function fetchData(url) {
             .catch(e => console.log('Problem', e))
 }
 
-
+// fetching 12 random users from the Random User API and displaying their information on the page with the displayCard() function
 for (let i=0; i<12; i++) {
     fetchData('https://randomuser.me/api/?nat=us')
         .then(data => {
@@ -42,6 +42,7 @@ for (let i=0; i<12; i++) {
 
 /** checkStatus function
  * function from Treehouse Fetch API workshop
+ * checks if the promise was rejected or resolved and throws an error if it was rejected
  * @param {*} response 
  * @returns 
  */
@@ -53,7 +54,7 @@ function checkStatus(response) {
     }
 }
 /** displayCard function
- * 
+ * creates the html string to be added to the div element which will display the employee information
  * @param {*} name 
  * @param {*} email 
  * @param {*} location 
@@ -80,7 +81,7 @@ function displayCard(name, email, location, picture) {
 }
 
 /** displayModal function
- * 
+ * creates the html string to for the modal that appears when an employee is clicked and adds it to the body element 
  * @param {*} picture 
  * @param {*} name 
  * @param {*} email 
@@ -112,9 +113,9 @@ function displayModal(picture, name, email, city, number, address, birthday) {
 }
 
 /** formatBirthday function
- * 
+ * takes the birthdate given by the Random User API and formats it to MM/DD/YYYY
  * @param {*} dob 
- * @returns 
+ * @returns formatted birthday
  */
 function formatBirthday(dob) {
     let birthday = dob.date.substr(0,10);
@@ -123,9 +124,9 @@ function formatBirthday(dob) {
 }
 
 /** formatNumber function
- * 
+ * takes the phone number from the Random User API and formats it to (XXX) XXX-XXXX
  * @param {*} phone 
- * @returns 
+ * @returns formatted phone number
  */
 function formatNumber(phone) {
     const regex = /^\D*(\d{3})-\D*(\d{3})-\D*(\d{4})\D*$/;
@@ -133,19 +134,19 @@ function formatNumber(phone) {
 }
 
 /** formatAddress function
- * 
+ * takes the location information from the Random User API and formats it into a detailed address
  * @param {*} location 
- * @returns 
+ * @returns formatted address
  */
 function formatAddress(location) {
     return `${location.street.number} ${location.street.name}, ${location.city}, ${location.state} ${location.postcode}`
 }
 
 /** checkClickedEmployee function
- * 
+ * checks if the name of the employee clicked matches one of the names in the 'employees' variable
  * @param {*} path 
  * @param {*} name 
- * @returns 
+ * @returns boolean true or false
  */
 function checkClickedEmployee (path, name) {
     let correct = false;
@@ -165,6 +166,10 @@ function checkClickedEmployee (path, name) {
 // Event Listeners
 //-----------------------------------
 
+/** Event listener for when an employee name is clicked
+ * loops through the 'employees' array and calls the checkClickedEmployee() function to check if the employee name matches the employee that was clicked
+ * then calls the displayModal() with the employee information if the name matches
+*/
 galleryDiv.addEventListener('click', (e) => {
     
     employees.forEach(employee => {
@@ -182,6 +187,9 @@ galleryDiv.addEventListener('click', (e) => {
     })
 })
 
+/** Event listener for the close button
+ * removes the div element for the modal window when clicked
+*/
 body.addEventListener('click', (e) => {
     if (e.target.textContent === 'X') {
         var modalDiv = document.querySelector('.modal-container');
