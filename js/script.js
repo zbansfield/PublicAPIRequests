@@ -44,7 +44,7 @@ for (let i=0; i<12; i++) {
  * function from Treehouse Fetch API workshop
  * checks if the promise was rejected or resolved and throws an error if it was rejected
  * @param {*} response 
- * @returns 
+ * @returns Promise object
  */
 function checkStatus(response) {
     if (response.ok) {
