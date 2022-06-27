@@ -23,7 +23,6 @@ function fetchData(url) {
 }
 
 // fetching 12 random users from the Random User API and displaying their information on the page with the displayCard() function
-
 fetchData('https://randomuser.me/api/?nat=us&results=12')
     .then(data => {
         employees = data.results
