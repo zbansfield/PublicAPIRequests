@@ -22,7 +22,7 @@ function fetchData(url) {
             .catch(e => console.log('Problem', e))
 }
 
-// fetching 12 random users from the Random User API and displaying their information on the page with the displayCard() function
+// Fetching 12 random users from the Random User API and displaying their information on the page with the displayCard() function
 fetchData('https://randomuser.me/api/?nat=us&results=12')
     .then(data => {
         employees = data.results
@@ -53,6 +53,7 @@ function checkStatus(response) {
         return Promise.reject(new Error(response.statusText));
     }
 }
+
 /** displayCard function
  * creates the html string to be added to the div element which will display the employee information
  * @param {*} name 
@@ -81,7 +82,7 @@ function displayCard(name, email, location, picture) {
 }
 
 /** displayModal function
- * creates the html string to for the modal that appears when an employee is clicked and adds it to the body element 
+ * creates the html string for the modal that appears when an employee is clicked and adds it to the body element 
  * @param {*} picture 
  * @param {*} name 
  * @param {*} email 
