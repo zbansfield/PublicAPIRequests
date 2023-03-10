@@ -149,10 +149,10 @@ function formatAddress(location) {
  * @param {*} name 
  * @returns boolean true or false
  */
-function checkClickedEmployee (path, name) {
+function checkClickedEmployee (childElements, name) {
     let correct = false;
 
-    path.forEach(element => {
+    childElements.forEach(element => {
         if (element.className === 'card') {
             if(element.childNodes[3].childNodes[1].textContent === name) {
                 correct = true;
@@ -182,7 +182,7 @@ galleryDiv.addEventListener('click', (e) => {
         const address = formatAddress(employee.location)
         const birthday = formatBirthday(employee.dob)
 
-        if (checkClickedEmployee(e.path, name)) {
+        if (checkClickedEmployee(e.currentTarget.children, name)) {
             displayModal(picture, name, email, city, number, address, birthday)
         }
     })
