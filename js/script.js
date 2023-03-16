@@ -153,7 +153,7 @@ function checkClickedEmployee (childElements, name) {
     let correct = false;
 
     childElements.forEach(element => {
-        if (element.className === 'card') {
+        if (element.className && (element.className === 'card')) {
             if(element.childNodes[3].childNodes[1].textContent === name) {
                 correct = true;
             }
@@ -182,7 +182,7 @@ galleryDiv.addEventListener('click', (e) => {
         const address = formatAddress(employee.location)
         const birthday = formatBirthday(employee.dob)
 
-        if (checkClickedEmployee(e.currentTarget.children, name)) {
+        if (checkClickedEmployee(e.currentTarget.childNodes, name)) {
             displayModal(picture, name, email, city, number, address, birthday)
         }
     })
