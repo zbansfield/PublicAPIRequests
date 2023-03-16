@@ -153,7 +153,7 @@ function checkClickedEmployee (childElements, name) {
     let correct = false;
 
     childElements.forEach(element => {
-        if (element.className && (element.className === 'card-name')) {
+        if (element.className && (element.className.includes('card-name'))) {
             if(element.childNodes[1].textContent === name) {
                 correct = true;
             }
